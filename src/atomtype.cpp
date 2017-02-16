@@ -1,4 +1,4 @@
-4/**
+/**
  * @file atomtype.cpp
  * @author Charlène Servantie
  * M1-ALMA 2017    
