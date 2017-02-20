@@ -11,6 +11,8 @@ public class Arbre {
 	private Operation operation;
 	private Arbre arbreDroit;
 	private Arbre arbreGauche;
+	//TODO: deal with this (future me : hate past me)
+	private AtomType elements;
 	
 	/*
 	 * Constructeurs
@@ -108,28 +110,29 @@ public class Arbre {
 		sb.append("> ");
 		switch (operation) {
 		case CONC:
-			sb.append("Conc\n");
+			sb.append("Conc");
+			sb.append("\n");
 			sb.append(arbreDroit.printArbre(indentN));
-			sb.append("\n");
 			sb.append(arbreGauche.printArbre(indentN));
-			sb.append("\n");
 			break;
 		case UNION:
-			sb.append("Union\n");
-			sb.append(arbreDroit.printArbre(indentN));
+			sb.append("Union");
 			sb.append("\n");
+			sb.append(arbreDroit.printArbre(indentN));
 			sb.append(arbreGauche.printArbre(indentN));
 			break;
 		case UN:
 			sb.append("Un");
+			sb.append("\n");
 			break;
 		case ATOM:
 			sb.append("Atom");
+			sb.append("\n");
 			break;
 		case STAR:
-			sb.append("Star\n");
-			sb.append(arbreDroit.printArbre(indentN));
+			sb.append("Star");
 			sb.append("\n");
+			sb.append(arbreDroit.printArbre(indentN));
 			break;
 		
 		}
