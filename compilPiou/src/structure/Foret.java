@@ -18,7 +18,7 @@ public class Foret {
 		StringBuilder sb = new StringBuilder();
 		int indent = 1;
 		for (Arbre arbre : foret) {
-			sb.append(arbre.printArbre(indent));
+			//sb.append(arbre.printArbre(indent));
 			sb.append("****Séparation Arbres ****\n");
 			++indent;
 		}

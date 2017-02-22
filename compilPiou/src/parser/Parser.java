@@ -32,8 +32,7 @@ public class Parser {
 		}
 		finally {
 		    br.close();
-		}
-				
+		}				
 		return everything;
 	}
 	
