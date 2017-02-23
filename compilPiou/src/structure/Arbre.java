@@ -1,5 +1,6 @@
 package structure;
 
+import java.util.Vector;
 
 /**
  * Structure pour gérer les arbres d'opération du compilateur
@@ -8,6 +9,32 @@ package structure;
  */
 
 public class Arbre {
+	private Vector<Noeud> regles;
+	
+	public Arbre() {
+		regles = new Vector<Noeud>();
+		initArbreWithGzero();
+	}
+	
+	public void initArbreWithGzero(){
+		Noeud ruleS = 
+				new Conc(
+						new Star(
+								new Conc(
+										new Conc(
+												new Conc(new Atom("N", 0, AtomType.NONTERMINAL),
+														 new Atom("->", 0, AtomType.TERMINAL )),
+												new Atom("E", 0, AtomType.NONTERMINAL)), 
+										new Atom(",", 1, AtomType.TERMINAL))
+								),
+						new Atom(";", 0, AtomType.TERMINAL)
+						);
+		regles.addElement(ruleS);
+	}
+	
+	
+	
+	
 //	private Operation operation;
 //	private Arbre arbreDroit;
 //	private Arbre arbreGauche;

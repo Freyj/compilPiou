@@ -1,18 +1,18 @@
 package structure;
 
-public class Atom {
+public class Atom extends Noeud{
 	
-	private int code;
+	private String code;
 	private int action;
 	private AtomType type;
 	
-	public Atom(int co, int ac, AtomType ty) {
+	public Atom(String co, int ac, AtomType ty) {
 		code = co;
 		action = ac;
 		type = ty;
 	}
 	
-	public int getCode() {
+	public String getCode() {
 		return code;
 	}
 	
