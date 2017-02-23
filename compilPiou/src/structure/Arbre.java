@@ -17,6 +17,8 @@ public class Arbre {
 	}
 	
 	public void initArbreWithGzero(){
+		//regle 1
+		//indentation bizarre pour bien voir les elements dedans
 		Noeud ruleS = 
 				new Conc(
 						new Star(
@@ -30,6 +32,22 @@ public class Arbre {
 						new Atom(";", 0, AtomType.TERMINAL)
 						);
 		regles.addElement(ruleS);
+		
+		//regle 2
+		Noeud ruleN = new Atom("IDNTER", 2, AtomType.NONTERMINAL);
+		regles.addElement(ruleN);
+		
+		//regle 3
+		Noeud ruleE = 
+				new Conc(
+						new Atom("T", 0, AtomType.NONTERMINAL ),
+						new Star(
+								new Conc(
+										new Atom("+", 0, AtomType.TERMINAL),
+										new Atom("T", 3, AtomType.NONTERMINAL)))
+						); 
+		regles.addElement(ruleE);
+				
 	}
 	
 	
