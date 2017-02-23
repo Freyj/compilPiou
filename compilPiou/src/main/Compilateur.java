@@ -4,6 +4,7 @@ import java.io.File;
 
 import parser.Parser;
 import scanner.SymbolTable;
+import structure.Arbre;
 import structure.Atom;
 import structure.AtomType;
 import structure.Conc;
@@ -21,7 +22,7 @@ public class Compilateur {
 		
 		Parser p = new Parser(gramFile);
 		
-		//test affichage d'un noeud atome
+/*		//test affichage d'un noeud atome
 		Atom a = new Atom("F", 2, AtomType.TERMINAL);
 		//String s = a.imprimNoeud(3);
 		
@@ -32,6 +33,14 @@ public class Compilateur {
 		Star e = new Star(d);
 		String ba = e.imprimNoeud(3);
 		System.out.println(ba);
+		
+		Conc f = new Conc(c, new Conc(b, a));
+		if( f.equals(d)) {
+			System.out.println("BOUH");
+}*/
+		
+		Arbre arbre = new Arbre();
+		System.out.println(arbre.imprimArbre());
 
 	}
 

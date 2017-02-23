@@ -89,11 +89,17 @@ public class Arbre {
 	}
 	
 	
-	public void imprimArbre() {
+	public String imprimArbre() {
+		StringBuilder sb = new StringBuilder();
 		for (Noeud regle : regles) {
-			int indent = 1;
-			regle.imprimNoeud(indent);
+			sb.append("Regle ");
+			sb.append(regles.indexOf(regle));
+			sb.append("\n");
+			int indent = 3;
+			sb.append(regle.imprimNoeud(indent));
+			sb.append("\n");
 		}
+		return sb.toString();
 	}
 	
 	
