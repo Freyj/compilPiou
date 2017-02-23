@@ -18,9 +18,11 @@ public class Compilateur {
 	Parser p;
 	
 	public static void main(String[] args) {
+
+		Arbre arbre = new Arbre();
+		System.out.println(arbre.imprimArbre());
+		Parser p = new Parser(gramFile, arbre);
 		
-		
-		Parser p = new Parser(gramFile);
 		
 /*		//test affichage d'un noeud atome
 		Atom a = new Atom("F", 2, AtomType.TERMINAL);
@@ -39,8 +41,6 @@ public class Compilateur {
 			System.out.println("BOUH");
 }*/
 		
-		Arbre arbre = new Arbre();
-		System.out.println(arbre.imprimArbre());
 
 	}
 

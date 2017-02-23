@@ -5,12 +5,14 @@ import java.io.File;
 import java.io.FileReader;
 
 import scanner.SymbolTable;
+import structure.Arbre;
 
 public class Parser {
 	File file;
 	SymbolTable symTable;
+	Arbre regles;
 	
-	public Parser(File f) {
+	public Parser(File f, Arbre regles) {
 		file = f;
 		symTable = new SymbolTable();
 	}
