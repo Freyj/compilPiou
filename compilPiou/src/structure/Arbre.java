@@ -47,7 +47,43 @@ public class Arbre {
 										new Atom("T", 3, AtomType.NONTERMINAL)))
 						); 
 		regles.addElement(ruleE);
-				
+		
+		//regle 4
+		Noeud ruleT = 
+				new Conc(
+						new Atom("F", 0, AtomType.NONTERMINAL),
+						new Star(
+								new Conc(
+										new Atom(".", 0, AtomType.TERMINAL),
+										new Atom("F", 4, AtomType.NONTERMINAL)
+										)
+								)
+						);
+		regles.addElement(ruleT);
+		
+		//regle 5
+		Noeud ruleF =
+				new Union(
+						new Union(
+								new Union(
+										new Union(
+												new Atom("IDNTER", 5, AtomType.NONTERMINAL),
+												new Atom("IDNTER", 5, AtomType.NONTERMINAL)
+												),
+										//pas sure de ce que j'ai noté là
+										new Atom("/ /", 0, AtomType.TERMINAL)
+										),
+								new Conc(
+										new Conc(
+												new Atom("[", 0, AtomType.TERMINAL),
+												new Atom("E", 0, AtomType.NONTERMINAL)
+												),
+										new Atom("]", 6, AtomType.TERMINAL)
+										)								
+								),
+						new Atom("(/ /)", 7, AtomType.TERMINAL)
+						);
+		regles.addElement(ruleF);
 	}
 	
 	

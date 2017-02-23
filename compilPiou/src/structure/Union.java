@@ -1,6 +1,6 @@
 package structure;
 
-public class Union {
+public class Union extends Noeud{
 	private Noeud droit;
 	private Noeud gauche;
 	
