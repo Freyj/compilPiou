@@ -31,5 +31,20 @@ public class Union extends Noeud{
 		return sb.toString();
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		boolean result = false;
+		if (o instanceof Union) {
+			Union test = (Union) o;
+			if (getDroit().equals(test.getDroit())){
+				if (getGauche().equals(test.getGauche())) {
+					result = true;
+				}
+			}
+		}
+
+		return result;
+	}
+
 
 }

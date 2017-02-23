@@ -24,4 +24,14 @@ public class Star extends Noeud{
 		
 		return sb.toString();
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		boolean result = false;
+		if (o instanceof Star) {
+			Star test = (Star) o;
+			result = getStare().equals(test.getStare());
+		}
+		return result;
+	}
 }

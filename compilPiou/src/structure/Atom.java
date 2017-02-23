@@ -41,4 +41,18 @@ public class Atom extends Noeud{
 		return sb.toString();
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		boolean result = false;
+		if (o instanceof Atom) {
+			Atom test = (Atom) o;
+			if (getAction() == test.getAction()) {
+				if (getCode().equals(test.getCode())) {
+					result = getType().equals(test.getType());
+				}
+			}
+		}
+		return result;
+	}
+
 }

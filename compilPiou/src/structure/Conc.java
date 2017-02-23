@@ -31,4 +31,19 @@ public class Conc extends Noeud{
 		return sb.toString();
 		
 	}
+
+	@Override
+	public boolean equals(Object n) {
+		boolean result = false;
+		if (n instanceof Conc) {
+			Conc test = (Conc) n;
+			if (getDroit().equals(test.getDroit())){
+				if (getGauche().equals(test.getGauche())) {
+					result = true;
+				}
+			}
+		}
+		
+		return result;
+	}
 }

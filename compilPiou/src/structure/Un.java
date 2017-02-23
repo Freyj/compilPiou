@@ -16,6 +16,11 @@ public class Un extends Noeud{
 		// TODO Auto-generated method stub
 		return "";
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		return false;
+	}
 	
 	
 }
