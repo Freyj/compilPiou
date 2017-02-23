@@ -24,4 +24,21 @@ public class Atom extends Noeud{
 		return type;
 	}
 
+	@Override
+	public String imprimNoeud(int indent) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i<indent; ++i) {
+			sb.append("-");
+		}
+		sb.append("> " + "Atome ");
+		sb.append(getCode());
+		sb.append(" ");
+		sb.append(getAction());
+		sb.append(" ");
+		sb.append(getType());
+		sb.append("\n");
+		
+		return sb.toString();
+	}
+
 }

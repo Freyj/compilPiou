@@ -17,5 +17,19 @@ public class Union extends Noeud{
 		return droit;
 	}
 
+	@Override
+	public String imprimNoeud(int indent) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i<indent; ++i) {
+			sb.append("-");
+		}
+		sb.append("> Conc\n");
+		int newIndent = indent + 5;
+		sb.append(getDroit().imprimNoeud(newIndent));
+		sb.append(getGauche().imprimNoeud(newIndent));
+		
+		return sb.toString();
+	}
+
 
 }

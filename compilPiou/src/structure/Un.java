@@ -10,6 +10,12 @@ public class Un extends Noeud{
 	public Noeud getNoeud() {
 		return unique;
 	}
+
+	@Override
+	public String imprimNoeud(int indent) {
+		// TODO Auto-generated method stub
+		return "";
+	}
 	
 	
 }
