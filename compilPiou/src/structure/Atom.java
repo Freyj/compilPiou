@@ -30,11 +30,11 @@ public class Atom extends Noeud{
 		for (int i = 0; i<indent; ++i) {
 			sb.append("-");
 		}
-		sb.append("> " + "Atome ");
+		sb.append("> " + "Atome  ");
 		sb.append(getCode());
-		sb.append(" ");
+		sb.append("  ");
 		sb.append(getAction());
-		sb.append(" ");
+		sb.append("  ");
 		sb.append(getType());
 		sb.append("\n");
 		

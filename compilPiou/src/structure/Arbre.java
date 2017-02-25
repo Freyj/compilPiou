@@ -70,10 +70,16 @@ public class Arbre {
 								new Union(
 										new Union(
 												new Atom("IDNTER", 5, AtomType.NONTERMINAL),
-												new Atom("IDNTER", 5, AtomType.NONTERMINAL)
+												new Atom("ELTER", 5, AtomType.NONTERMINAL)
 												),
 										//pas sure de ce que j'ai noté là
-										new Atom("/ /", 0, AtomType.TERMINAL)
+										new Conc(
+												new Atom("(", 0, AtomType.TERMINAL),
+												new Conc(
+														new Atom("E", 0, AtomType.NONTERMINAL),
+														new Atom(")", 0, AtomType.TERMINAL)
+														)
+												)
 										),
 								new Conc(
 										new Conc(
@@ -83,7 +89,13 @@ public class Arbre {
 										new Atom("]", 6, AtomType.TERMINAL)
 										)								
 								),
-						new Atom("(/ /)", 7, AtomType.TERMINAL)
+						new Conc(
+								new Atom("(/", 0, AtomType.TERMINAL),
+								new Conc(
+										new Atom("E", 0, AtomType.NONTERMINAL),
+										new Atom("/)", 7, AtomType.TERMINAL)
+										)
+								)
 						);
 		regles.addElement(ruleF);
 	}
