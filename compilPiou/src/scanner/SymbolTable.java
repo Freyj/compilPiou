@@ -32,9 +32,9 @@ public class SymbolTable {
 	}
 	
 	public void remplirTableGZero(){
-		//TODO add les symbols de Gzero
-		String[] tabZeroTerm = {""};
-		String[] tabZeroNonTerm = {""};
+		//TODO add les symbolse de Gzero
+		String[] tabZeroTerm = {";", ",", "->", "+", ".", "IDNTER", "ELTER", "[", "]", "(", ")", "(/", "/)" };
+		String[] tabZeroNonTerm = {"N", "E", "T", "F"};
 		
 		for (String s : tabZeroTerm) {
 			addSymbol(s, true);
