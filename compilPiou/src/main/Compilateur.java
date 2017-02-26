@@ -14,14 +14,15 @@ public class Compilateur {
 	
 	SymbolTable symbTable;
 	static File gramFile = new File("/res/gzero");
+	static Arbre regles;
 	
 	Parser p;
 	
 	public static void main(String[] args) {
 
-		Arbre arbre = new Arbre();
-		System.out.println(arbre.imprimArbre());
-		Parser p = new Parser(gramFile, arbre);
+		regles = new Arbre();
+		System.out.println(regles.imprimArbre());
+		Parser p = new Parser(gramFile, regles);
 		
 		
 /*		//test affichage d'un noeud atome

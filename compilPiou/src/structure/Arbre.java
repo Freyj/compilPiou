@@ -115,5 +115,10 @@ public class Arbre {
 	}
 	
 	
+	public void addNoeud(Noeud n) {
+		regles.addElement(n);
+	}
+	
+	
 
 }
