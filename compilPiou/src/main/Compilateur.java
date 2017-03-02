@@ -25,7 +25,8 @@ public class Compilateur {
 		Parser p = new Parser(gramFile, regles);
 		
 		
-/*		//test affichage d'un noeud atome
+/*		
+		//test affichage d'un noeud atome
 		Atom a = new Atom("F", 2, AtomType.TERMINAL);
 		//String s = a.imprimNoeud(3);
 		
@@ -40,7 +41,8 @@ public class Compilateur {
 		Conc f = new Conc(c, new Conc(b, a));
 		if( f.equals(d)) {
 			System.out.println("BOUH");
-}*/
+		}
+*/
 		
 
 	}
