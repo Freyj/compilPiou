@@ -96,7 +96,7 @@ public class Arbre {
 		StringBuilder sb = new StringBuilder();
 		for (Noeud regle : regles) {
 			sb.append("Regle ");
-			sb.append(regles.indexOf(regle));
+			sb.append(regles.indexOf(regle)+1);
 			sb.append("\n");
 			int indent = 3;
 			sb.append(regle.imprimNoeud(indent));

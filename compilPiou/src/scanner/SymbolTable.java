@@ -6,6 +6,22 @@ public class SymbolTable {
 	
 	//two maps one for terminal, one for non terminal??
 	private Vector<String> symbolesTerminaux;
+	public Vector<String> getSymbolesTerminaux() {
+		return symbolesTerminaux;
+	}
+
+	public void setSymbolesTerminaux(Vector<String> symbolesTerminaux) {
+		this.symbolesTerminaux = symbolesTerminaux;
+	}
+
+	public Vector<String> getSymbolesNonTerminaux() {
+		return symbolesNonTerminaux;
+	}
+
+	public void setSymbolesNonTerminaux(Vector<String> symbolesNonTerminaux) {
+		this.symbolesNonTerminaux = symbolesNonTerminaux;
+	}
+
 	private Vector<String> symbolesNonTerminaux;
 	
 	public SymbolTable() {
@@ -45,6 +61,27 @@ public class SymbolTable {
 		}
 		
 	}
+	
+	/**
+	 * Détermine si un élément existe dans le symbolTable
+	 * renvoie un int : 0 si l'élément n'est pas présent,
+	 * 1 si l'élément est terminal, 2 si il est non terminal
+	 * 
+	 */
+	public int contains(String item) {
+		int resultat = 0;
+		
+		if (getSymbolesTerminaux().contains(item)) {
+			resultat = 1;
+		}
+		
+		if (getSymbolesNonTerminaux().contains(item)) {
+			resultat = 2;
+		}
+		
+		return resultat;
+	}
+	
 
 	
 }

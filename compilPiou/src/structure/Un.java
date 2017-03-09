@@ -25,7 +25,11 @@ public class Un extends Noeud{
 
 	@Override
 	public boolean equals(Object o) {
-		return false;
+		boolean result = false;
+		if (o instanceof Un) {
+			result = unique.equals(((Un) o).unique);
+		}
+		return result;
 	}
 	
 	
