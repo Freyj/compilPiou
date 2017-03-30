@@ -47,6 +47,7 @@ public class SymbolTable {
 		}		
 	}
 	
+	
 	public void remplirTableGZero(){
 		
 		String[] tabZeroTerm = {";", ",", "->", "+", ".", "IDNTER", "ELTER", "[", "]", "(", ")", "(/", "/)" };
