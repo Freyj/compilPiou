@@ -2,9 +2,7 @@ package parser;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.Vector;
 
 import scanner.SymbolTable;
@@ -58,16 +56,21 @@ public class Parser {
 		//un i pour parcourir
 		boolean done = false;
 		int i = 0;
+		int deb = 0;
 		while (!done) {
-			String item = fileContent.substring(0,  i);
-			if (symTable.contains(item) > 0) {
+			String item = fileContent.substring(deb,  i);
+			if (symTable.contains(item) == 0) {
+				++i;
+			}
+			else {
 				
 			}
-			
 			//si le String est vide, on sort de la boucle
 			if (fileContent.equals("")) {
 				done = true;
 			}
+			
+			++i;
 		}
 		
 		
