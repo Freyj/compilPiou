@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import scanner.SymbolTable;
 import structure.Arbre;
+import structure.Atom;
 import structure.Noeud;
 
 public class Parser {
@@ -78,5 +79,16 @@ public class Parser {
 	//analyse taff
 	//rescan sur l'élément
 	//si on fait scan on passe à l'élément suivant
+	
+	//il faut un truc qui récupère les unités lexicales
+	
+	Vector<Atom> getLexicalUnits(String totalThings) {
+		Vector<Atom> resultVect = new Vector<Atom>();
+		
+		
+		
+		return resultVect;
+	}
+	
 
 }
