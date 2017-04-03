@@ -3,18 +3,32 @@ package structure;
 import java.util.Vector;
 
 /**
- * Structure pour gérer les arbres d'opération du compilateur
+ * Structure pour gérer les arbres d'opération de la gzéro
  * quand il n'y a qu'un sous arbre, il est toujours à droite
  *
  */
 
 public class Arbre {
 	private Vector<Noeud> regles;
-	
-	public Arbre() {
-		regles = new Vector<Noeud>();
-		initArbreWithGzero();
+		
+	public Vector<Noeud> getRegles() {
+		return regles;
 	}
+
+	public void setRegles(Vector<Noeud> regles) {
+		this.regles = regles;
+	}
+
+	public Arbre(boolean izGzero) {
+		if (izGzero) {
+			regles = new Vector<Noeud>();
+			initArbreWithGzero();
+		}
+		else{
+			
+		}
+	}
+	
 	/**
 	 * Methode pour initialiser l'arbre de règles avec les règles de G0
 	 */
@@ -94,6 +108,7 @@ public class Arbre {
 	
 	public String imprimArbre() {
 		StringBuilder sb = new StringBuilder();
+		sb.append("Affichage de la forêt de règles de la GZéro\n");
 		for (Noeud regle : regles) {
 			sb.append("Regle ");
 			sb.append(regles.indexOf(regle)+1);
@@ -105,7 +120,9 @@ public class Arbre {
 		return sb.toString();
 	}
 	
-	
+	/*
+	 *
+	 */
 	public void addNoeud(Noeud n) {
 		regles.addElement(n);
 	}
