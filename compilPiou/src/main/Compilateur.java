@@ -5,10 +5,6 @@ import java.io.File;
 import parser.Parser;
 import scanner.SymbolTable;
 import structure.Foret;
-import structure.Atom;
-import structure.AtomType;
-import structure.Conc;
-import structure.Star;
 
 public class Compilateur {
 	SymbolTable symbTable;

@@ -24,6 +24,15 @@ import structure.UniteLexicale;
  *
  */
 public class Parser {
+
+	private File file;
+	private SymbolTable symTable;
+	private Foret reglesCompilo;
+	private UniteLexicale tokenActuel;
+	private int compteurString = 0;
+	private String contenuFichier;
+
+	
 	public File getFile() {
 		return file;
 	}
@@ -71,14 +80,6 @@ public class Parser {
 	public void setContenuFichier(String contenuFichier) {
 		this.contenuFichier = contenuFichier;
 	}
-
-	private File file;
-	private SymbolTable symTable;
-	private Foret reglesCompilo;
-	private UniteLexicale tokenActuel;
-	private int compteurString = 0;
-	private String contenuFichier;
-
 	public Parser(File f, Foret regles) {
 		file = f;
 		symTable = new SymbolTable();
@@ -167,7 +168,7 @@ public class Parser {
 	//si on fait scan on passe à l'élément suivant
 
 	//il faut un truc qui récupère les unités lexicales
-
+	
 	boolean analyse(Noeud regle) {
 		//si c'est une conc on teste les deux arbres
 		if (regle instanceof Conc) {
