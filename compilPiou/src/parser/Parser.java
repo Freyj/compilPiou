@@ -136,7 +136,7 @@ public class Parser {
 	 * @return
 	 * TODO: fonction d'analyse à finir
 	 */
-	boolean analyse(Noeud regle) {
+	public boolean analyse(Noeud regle) {
 		//si c'est une conc on teste les deux arbres
 		if (regle instanceof Conc) {
 			if (analyse(((Conc) regle).getDroit()))  {
@@ -189,10 +189,7 @@ public class Parser {
 				boolean a = true;
 				//on analyse si la regle correspond a une regle
 				//(d'après le code de la regle
-				//TODO: trouver cette condition et enlever cette merde
-				if(a == true) {
-					//analyse(reglesCompilo.getRegles().get(index)))) {
-					//revoir la condition proprement
+				if(analyse(reglesCompilo.getReglesb().get(regleAt.getCode()))) {
 					if (regleAt.getAction() != 0) {
 						g0Action(regleAt.getAction());
 					}

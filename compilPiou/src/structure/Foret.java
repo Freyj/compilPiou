@@ -147,7 +147,10 @@ public class Foret {
 		regles.addElement(ruleF);
 		regles2.put("F", ruleF);
 	}	
-	
+	/**
+	 * Creation d'un String avec les regles dans le vecteur
+	 * @return
+	 */
 	public String imprimArbre() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Affichage de la forêt de règles de la GZéro\n");
@@ -162,6 +165,10 @@ public class Foret {
 		return sb.toString();
 	}
 	
+	/**
+	 * Creation d'un String avec les regles dans la map
+	 * @return
+	 */
 	public String imprimArbreMap() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Affichage de la foret v2\n");
