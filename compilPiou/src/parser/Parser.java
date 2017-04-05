@@ -369,7 +369,27 @@ public class Parser {
 
 
 	}
-
+	
+	
+	/**
+	 *  Affiche toutes les unités lexicales de la grammaire
+	 *  prise en compte, et garde en mémoire le compteur 
+	 *  pour éviter les soucis si jamais on l'appel en cours de route
+	 */
+	public void affichUnitesLexicales() {
+		int oldcptValue = compteurString;
+		compteurString = 0;
+		System.out.println("Affichage des Unites Lexicales de la grammaire prise en compte");
+		while(compteurString < contenuFichier.length()-1) {
+			System.out.println(getUniteLexicaleSuivante());
+		}
+		compteurString = oldcptValue;
+	}
+	
+	/**
+	 * G0 action
+	 * @param action
+	 */
 	private void g0Action(int action) {
 		//pile
 		Stack<Noeud> sousArbres = new Stack<>();
@@ -377,7 +397,7 @@ public class Parser {
 		case 1:
 			Noeud t1a = sousArbres.pop();
 			Noeud t1b = sousArbres.pop();
-			//?
+			
 			break;
 		case 2:
 			//Noeud t2 = new Atom(RechercheNT(), action, AtomType.NONTERMINAL);

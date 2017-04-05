@@ -1,7 +1,6 @@
 package structure;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Vector;
 
 /**
@@ -122,7 +121,7 @@ public class Foret {
 	/**
 	 * Methode pour initialiser la foret de règles avec les règles de G0
 	 */
-	public void initArbreWithGzero(){
+	private void initArbreWithGzero(){
 		//regle 1
 		Noeud ruleS = genS();
 		regles.addElement(ruleS);
@@ -160,6 +159,11 @@ public class Foret {
 			sb.append(regle.imprimNoeud(indent));
 			sb.append("\n");
 		}
+		return sb.toString();
+	}
+	
+	public String imprimArbreMap() {
+		StringBuilder sb = new StringBuilder();
 		sb.append("Affichage de la foret v2\n");
 		for (String s : regles2.keySet()){
 			sb.append("Regle ");
@@ -177,6 +181,10 @@ public class Foret {
 	 */
 	public void addNoeud(Noeud n) {
 		regles.addElement(n);
+	}
+	
+	public void addNoeudMap(String cle, Noeud n) {
+		regles2.put(cle,  n);
 	}
 	
 	

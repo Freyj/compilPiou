@@ -39,7 +39,7 @@ public class UniteLexicale {
 	}
 	@Override
 	public String toString() {
-		return "UniteLexicale [chaine=" + chaine + ", code=" + code + ", action=" + action + ", type=" + type + "]";
+		return "UniteLexicale [\n\tchaine=" + chaine + ",\n\tcode=" + code + ",\n\taction=" + action + ",\n\ttype=" + type + "]";
 	}
 	
 	
