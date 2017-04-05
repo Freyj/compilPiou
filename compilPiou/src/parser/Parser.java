@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Stack;
 
 import scanner.SymbolTable;
 import structure.Atom;
@@ -27,6 +28,8 @@ public class Parser {
 	private File file;
 	private SymbolTable symTable;
 	private Foret reglesCompilo;
+	//y a 5 règles dans g0
+	private int nbRegles = 5;
 	private UniteLexicale tokenActuel;
 	private int compteurString = 0;
 	private String contenuFichier;
@@ -126,7 +129,6 @@ public class Parser {
 	//analyse taff
 	//rescan sur l'élément
 	//si on fait scan on passe à l'élément suivant
-	//il faut un truc qui récupère les unités lexicales
 
 	/**
 	 * Fonction d'analyse
@@ -369,21 +371,37 @@ public class Parser {
 	}
 
 	private void g0Action(int action) {
-
+		//pile
+		Stack<Noeud> sousArbres = new Stack<>();
 		switch(action) {
 		case 1:
+			Noeud t1a = sousArbres.pop();
+			Noeud t1b = sousArbres.pop();
+			//?
 			break;
 		case 2:
+			//Noeud t2 = new Atom(RechercheNT(), action, AtomType.NONTERMINAL);
 			break;
 		case 3:
+			Noeud t3a = sousArbres.pop();
+			Noeud t3b = sousArbres.pop();
+			sousArbres.push(new Union(t3a, t3b));
 			break;
 		case 4:
+			Noeud t4a = sousArbres.pop();
+			Noeud t4b = sousArbres.pop();
+			sousArbres.push(new Conc(t4a, t4b));
 			break;
 		case 5:
+			
 			break;
 		case 6:
+			Noeud t6 = sousArbres.pop();
+			sousArbres.push(new Star(t6));
 			break;
 		case 7: 
+			Noeud t7 = sousArbres.pop();
+			sousArbres.push(new Un(t7));
 			break;
 		default:
 			System.out.println("Erreur de G0 action : pas d'action " + action);

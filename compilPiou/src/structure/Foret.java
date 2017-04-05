@@ -1,5 +1,7 @@
 package structure;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 /**
@@ -10,6 +12,7 @@ import java.util.Vector;
 
 public class Foret {
 	private Vector<Noeud> regles;
+	private HashMap<String, Noeud> regles2;
 		
 	public Vector<Noeud> getRegles() {
 		return regles;
@@ -18,10 +21,19 @@ public class Foret {
 	public void setRegles(Vector<Noeud> regles) {
 		this.regles = regles;
 	}
+	
+	public HashMap<String, Noeud> getReglesb() {
+		return regles2;
+	}
+	
+	public void setReglesb(HashMap<String, Noeud> map) {
+		regles2 = map;
+	}
 
 	public Foret(boolean izGzero) {
 		if (izGzero) {
 			regles = new Vector<Noeud>();
+			regles2 = new HashMap<String, Noeud>();
 			initArbreWithGzero();
 		}
 		else{
@@ -114,22 +126,27 @@ public class Foret {
 		//regle 1
 		Noeud ruleS = genS();
 		regles.addElement(ruleS);
+		regles2.put("S", ruleS);
 		
 		//regle 2
 		Noeud ruleN = genN();
 		regles.addElement(ruleN);
+		regles2.put("N", ruleN);
 		
 		//regle 3
 		Noeud ruleE = genE();				
 		regles.addElement(ruleE);
+		regles2.put("E", ruleE);
 		
 		//regle 4
 		Noeud ruleT = genT();
 		regles.addElement(ruleT);
+		regles2.put("T", ruleT);
 		
 		//regle 5
 		Noeud ruleF = genF();
 		regles.addElement(ruleF);
+		regles2.put("F", ruleF);
 	}	
 	
 	public String imprimArbre() {
@@ -141,6 +158,15 @@ public class Foret {
 			sb.append("\n");
 			int indent = 3;
 			sb.append(regle.imprimNoeud(indent));
+			sb.append("\n");
+		}
+		sb.append("Affichage de la foret v2\n");
+		for (String s : regles2.keySet()){
+			sb.append("Regle ");
+			sb.append(s);
+			sb.append("\n");
+			int indent = 3;
+			sb.append(regles2.get(s).imprimNoeud(indent));
 			sb.append("\n");
 		}
 		return sb.toString();
