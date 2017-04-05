@@ -207,7 +207,6 @@ public class Parser {
 	/** 
 	 * (équivalent de la fonction scan dans le cours)
 	 * Scan la chaîne pour avancer au token suivant
-	 * TODO:Finish Scan
 	 */
 	public UniteLexicale getUniteLexicaleSuivante() {
 		//on prend le caractere suivant dans la chaine la où on 
@@ -351,7 +350,9 @@ public class Parser {
 						action = Integer.parseInt(actionBuilder.toString());
 												
 					}
-					else if (!Character.isWhitespace(nextChar)) {
+					else if (!Character.isWhitespace(nextChar) 
+							&& (Character.isAlphabetic(nextChar) 
+							|| Character.isDigit(nextChar))) {
 						//System.out.println("Un char ou int ou autre : " + nextChar);
 						identerBuilder.append(nextChar);
 						++compteurString;
