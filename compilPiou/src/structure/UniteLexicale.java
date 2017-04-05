@@ -1,7 +1,7 @@
 package structure;
 
 /**
- * Classe gérant les 
+ * Classe gérant les tokens
  * 
  *
  */

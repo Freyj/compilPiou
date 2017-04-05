@@ -60,7 +60,7 @@ public class Foret {
 	}
 	
 	public Noeud genN() {
-		return new Atom("IDNTER", 2, AtomType.NONTERMINAL);
+		return new Atom("IDNTER", 2, AtomType.TERMINAL);
 	}
 	
 	public Noeud genE() {
@@ -94,8 +94,8 @@ public class Foret {
 				new Union(
 						new Union(
 								new Union(
-										new Atom("IDNTER", 5, AtomType.NONTERMINAL),
-										new Atom("ELTER", 5, AtomType.NONTERMINAL)
+										new Atom("IDNTER", 5, AtomType.TERMINAL),
+										new Atom("ELTER", 5, AtomType.TERMINAL)
 										),
 								new Conc(
 										new Atom("(", 0, AtomType.TERMINAL),
@@ -169,7 +169,7 @@ public class Foret {
 	 */
 	public String imprimArbreMap() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Affichage de la foret v2\n");
+		sb.append("Affichage de la foret\n");
 		for (String s : regles2.keySet()){
 			sb.append("Regle ");
 			sb.append(s);

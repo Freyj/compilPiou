@@ -8,21 +8,18 @@ import structure.Foret;
 
 public class Compilateur {
 	SymbolTable symbTable;
-	//static File gramFile = new File("res/gzero");
-	static File gramFile = new File("res/gplVeryBasic");
-	static Foret regles;
+	static File gramFile = new File("res/gzero");
+	//static File gramFile = new File("res/gplVeryBasic");
 	
 	Parser p;
 	
 	public static void main(String[] args) {
-
-		regles = new Foret(true);
 		//System.out.println(regles.imprimArbre());
-		Parser p = new Parser(gramFile, regles);
-		/**
-		 * Sortie des Arbres de la GZero
+		Parser p = new Parser(gramFile);
+		/*
+		 * Affichage des Arbres de la GZero
 		 */
-		//System.out.println(p.getReglesCompilo().imprimArbreMap());
+		System.out.println(p.getReglesCompilo().imprimArbreMap());
 		
 		/* Test affichage des unités lexicales
 		  */
@@ -31,9 +28,9 @@ public class Compilateur {
 		/*
 		 * Test analyse
 		 */
-		boolean boo= p.analyse(regles.getReglesb().get("S"));
+		//boolean boo= p.analyse(p.getReglesCompilo().getReglesb().get("S"));
 		
-		System.out.println(boo);
+		//System.out.println(boo);
 		
 	}
 

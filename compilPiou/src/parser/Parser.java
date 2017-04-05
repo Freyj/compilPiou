@@ -82,10 +82,10 @@ public class Parser {
 	public void setContenuFichier(String contenuFichier) {
 		this.contenuFichier = contenuFichier;
 	}
-	public Parser(File f, Foret regles) {
+	public Parser(File f) {
 		file = f;
 		symTable = new SymbolTable();
-		reglesCompilo = regles;
+		reglesCompilo = new Foret(true);
 		try {
 			contenuFichier = getFileContent();
 		} catch (Exception e) {
@@ -140,6 +140,7 @@ public class Parser {
 	 * TODO:debug
 	 */
 	public boolean analyse(Noeud regle) {
+		regle.imprimNoeud(3);
 		//si c'est une conc on teste les deux arbres
 		if (regle instanceof Conc) {
 			//System.out.println("\t if (analyse(((Conc) regle).getDroit()))");
@@ -178,7 +179,7 @@ public class Parser {
 		else if (regle instanceof Atom) {
 			System.out.println("Une Atom!");
 			Atom regleAt = (Atom) regle;
-			System.out.println(regleAt.getCode());
+			System.out.println("Je suis le code : " + regleAt.getCode());
 			//System.out.println("Atome : " + regleAt.getType());
 			//si c'est un terminal
 			if (regleAt.getType() == AtomType.TERMINAL) {
@@ -199,8 +200,8 @@ public class Parser {
 			else if (regleAt.getType() == AtomType.NONTERMINAL){
 				//on analyse si la regle correspond a une regle
 				//(d'après le code de la regle
-				//Atom n = (Atom) reglesCompilo.getReglesb().get(regleAt.getCode());
-				//System.out.println(n.getCode());
+				Atom n = (Atom) reglesCompilo.getReglesb().get(regleAt.getCode());
+				System.out.println(n.getCode());
 				if(analyse(reglesCompilo.getReglesb().get(regleAt.getCode()))) {
 					if (regleAt.getAction() != 0) {
 						g0Action(regleAt.getAction());
@@ -380,7 +381,6 @@ public class Parser {
 
 
 	}
-	
 	
 	/**
 	 *  Affiche toutes les unités lexicales de la grammaire
