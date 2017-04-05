@@ -22,16 +22,16 @@ public class Compilateur {
 		/**
 		 * Sortie des Arbres de la GZero
 		 */
-		System.out.println(p.getReglesCompilo().imprimArbreMap());
+		//System.out.println(p.getReglesCompilo().imprimArbreMap());
 		
 		/* Test affichage des unités lexicales
 		  */
-		p.affichUnitesLexicales();
+		//p.affichUnitesLexicales();
 		
 		/*
 		 * Test analyse
 		 */
-		boolean boo= p.analyse(regles.getReglesb().get("F"), 1);
+		boolean boo= p.analyse(regles.getReglesb().get("S"), 1);
 		
 		System.out.println(boo);
 		
