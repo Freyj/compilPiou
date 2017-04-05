@@ -5,13 +5,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Vector;
 
 import scanner.SymbolTable;
-import structure.Foret;
 import structure.Atom;
 import structure.AtomType;
 import structure.Conc;
+import structure.Foret;
 import structure.Noeud;
 import structure.Star;
 import structure.Un;
@@ -32,7 +31,7 @@ public class Parser {
 	private int compteurString = 0;
 	private String contenuFichier;
 
-	
+
 	public File getFile() {
 		return file;
 	}
@@ -128,7 +127,7 @@ public class Parser {
 	//rescan sur l'élément
 	//si on fait scan on passe à l'élément suivant
 	//il faut un truc qui récupère les unités lexicales
-	
+
 	/**
 	 * Fonction d'analyse
 	 * @param regle
@@ -210,98 +209,173 @@ public class Parser {
 	 * Scan la chaîne pour avancer au token suivant
 	 * TODO:Finish Scan
 	 */
-	private UniteLexicale getUniteLexicaleSuivante() {
-		//un stringbuilder pour build le string
-		StringBuilder sb = new StringBuilder();
+	public UniteLexicale getUniteLexicaleSuivante() {
 		//on prend le caractere suivant dans la chaine la où on 
 		//s'était arrêté
 		char nextChar = contenuFichier.charAt(compteurString);
 		//on initialise le token pour avoir un retour
 		//(si atomType null sur le retour > error)
 		UniteLexicale token = new UniteLexicale("", "", 0, null);
-		
+
 		//on vérifie qu'on a pas atteint la fin du fichier
-		
-		while(compteurString <= contenuFichier.length()) {
+		while(compteurString < contenuFichier.length()) {
+			//de base l'action est à 0
+			int action = 0;
 			//on mange les espaces, parce qu'on s'en fiche
-			while (nextChar == ' ') {
+			while (Character.isWhitespace(nextChar)) {
 				++compteurString;
 				nextChar = contenuFichier.charAt(compteurString);
+				System.out.println("Y a un espace qu'on enlève");
 			}
-			
-			//si on a un ' on doit en avoir un à la fin (idem ([
-			if (nextChar == '\'')  {
-
-			}	
-			//si c'est pas une action (#), et tant que c'est des chars ou des chiffres,
-			//on continue à accumuler les strings
-			while(
-					nextChar != '#'
-					&& (Character.isAlphabetic(nextChar) ||Character.isDigit(nextChar)) ) {
-				sb.append(nextChar);
+			//on gère les caractères terminaux direct
+			if (nextChar == '.') {
+				System.out.println("J'ai vu un point.");
 				++compteurString;
-				nextChar = contenuFichier.charAt(compteurString);
+				return new UniteLexicale(".", ".", action, AtomType.TERMINAL);
 			}
-			//si c'est une action on ignore le #
-			if (nextChar == '#') {
-				nextChar = contenuFichier.charAt(compteurString);
-				tokenActuel.setChaine(sb.toString());
-				StringBuilder sb2 = new StringBuilder();
-				//tant que c'est un chiffre, on avance
-				while(Character.isDigit(nextChar)) {
-					sb2.append(nextChar);
-					++compteurString;
-					nextChar = contenuFichier.charAt(compteurString);
-				}
-				//on change la chaine en int pour l'action
-				token.setAction(Integer.parseInt(sb2.toString()));
-			}
-
-			if (nextChar == '-') {
-				sb.append(nextChar);
+			else if (nextChar == ',') {
+				System.out.println("J'ai vu une virgule.");
 				++compteurString;
-				//le > après -
+				return new UniteLexicale(",", ",", action, AtomType.TERMINAL);
+			}
+			else if (nextChar == ';') {
+				System.out.println("J'ai vu un point-virgule");
+				++compteurString;
+				return new UniteLexicale(";", ";", action, AtomType.TERMINAL);
+			}
+			else if (nextChar == '-') {
+				++compteurString;
 				nextChar = contenuFichier.charAt(compteurString);
 				if (nextChar == '>') {
-					sb.append(nextChar);
+					++compteurString;
+					return new UniteLexicale("->", "->", action, AtomType.TERMINAL);
+				}
+				else {
+					System.out.println("Un - sans >, bizarre.");
+				}
+			}
+			else if (nextChar == '[') {
+				System.out.println("J'ai vu un crochet ouvrant");
+				++compteurString;
+				return new UniteLexicale("[", "[", action, AtomType.TERMINAL);				
+			}
+			else if (nextChar == ']') {
+				System.out.println("J'ai vu un crochet fermant");				
+				++compteurString;
+				return new UniteLexicale("]", "]", action, AtomType.TERMINAL);	
+			}
+			else if (nextChar == '+') {
+				System.out.println("J'ai vu un plus");
+				++compteurString;
+				return new UniteLexicale("+", "+", action, AtomType.TERMINAL);				
+			}
+			else if (nextChar == '(') {
+				++compteurString;
+				nextChar = contenuFichier.charAt(compteurString);
+				if (nextChar == '/') {
+					System.out.println("J'ai vu une parenthese avec un antislash");
+					++compteurString;
+					return new UniteLexicale("(/", "(/", action, AtomType.TERMINAL);
+				}
+				System.out.println("J'ai vu une parenthese toute seule");
+				return new UniteLexicale("(", "(", action, AtomType.TERMINAL);
+			}
+			else if (nextChar =='/') {
+				System.out.println("Je vois un slash");
+				++compteurString;
+				nextChar = contenuFichier.charAt(compteurString);
+				if (nextChar == ')') {
+					System.out.println("Je vois un slash avec une parenthese");
+					++compteurString;
+					return new UniteLexicale("/)", "/)", action, AtomType.TERMINAL);
+				}
+			}
+			//si y a des guillements, on process jusqu'au guillement suivant
+			else if (nextChar == '\'') {
+				System.out.println("Je vois un guillement ouvrant");
+				++compteurString;
+				StringBuilder elterBuilder = new StringBuilder();
+				while ((nextChar != '\'') && (compteurString != contenuFichier.length())) {
+					System.out.println("J'ai vu un caractere : " + nextChar);
+					nextChar = contenuFichier.charAt(compteurString);
+					//si y a une action entre les guillements
+					if (nextChar == '#') {
+						System.out.println("J'ai vu un dièse");
+						StringBuilder actionBuilder = new StringBuilder();
+						while(Character.isDigit(nextChar)) {
+							System.out.println("On est encore dans le chiffre de l'action");
+							actionBuilder.append(nextChar);
+							++compteurString;
+							nextChar = contenuFichier.charAt(compteurString);
+						}
+						action = Integer.parseInt(actionBuilder.toString());				
+					}
+					elterBuilder.append(nextChar);
 					++compteurString;
 				}
-
+				if (compteurString == contenuFichier.length()) {
+					System.out.println("Il y a un oubli de guillement ' quelque part.");
+				}
+				else {
+					String elter = elterBuilder.toString();
+					System.out.println("L'élément terminal : " + elter);
+					return new UniteLexicale(elter,"ELTER", action, AtomType.NONTERMINAL);
+				}
 			}
-
-			String res = sb.toString();
-			token = new UniteLexicale(res, res, compteurString, null);
-			//Affichage pour test
-			System.out.println("Token : " + token.getChaine() +
-					"\nAction : " + token.getAction() +
-					"\nCode : " + token.getCode());
-
+			//si on a un debut de chaine (peut pas commencer par un chiffre)
+			else if (Character.isAlphabetic(nextChar)) {
+				System.out.println("Oh un identifiant");
+				StringBuilder identerBuilder = new StringBuilder();
+				while(Character.isAlphabetic(nextChar) 
+						|| Character.isDigit(nextChar)
+						|| (nextChar == '#')) {
+					nextChar = contenuFichier.charAt(compteurString);
+					if (nextChar == '#') {
+						System.out.println("Un dièse!");
+						StringBuilder actionBuilder = new StringBuilder();
+						while(Character.isDigit(nextChar)) {
+							actionBuilder.append(nextChar);
+							++compteurString;
+							nextChar = contenuFichier.charAt(compteurString);
+						}
+						action = Integer.parseInt(actionBuilder.toString());
+												
+					}
+					else if (!Character.isWhitespace(nextChar)) {
+						System.out.println("Un char ou int ou autre : " + nextChar);
+						identerBuilder.append(nextChar);
+						++compteurString;
+					}
+				}
+				String ident = identerBuilder.toString();
+				return new UniteLexicale(ident, "IDNTER", action, AtomType.NONTERMINAL);
+			}
 		}
 
 		return token;
-		
+
 
 	}
 
 	private void g0Action(int action) {
-		
+
 		switch(action) {
-			case 1:
-				break;
-			case 2:
-				break;
-			case 3:
-				break;
-			case 4:
-				break;
-			case 5:
-				break;
-			case 6:
-				break;
-			case 7: 
-				break;
-			default:
-				System.out.println("Erreur de G0 action : pas d'action " + action);
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		case 6:
+			break;
+		case 7: 
+			break;
+		default:
+			System.out.println("Erreur de G0 action : pas d'action " + action);
 		}
 
 	}

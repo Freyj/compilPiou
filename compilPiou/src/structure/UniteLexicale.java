@@ -37,6 +37,10 @@ public class UniteLexicale {
 		this.action = action;
 		this.type = type;
 	}
+	@Override
+	public String toString() {
+		return "UniteLexicale [chaine=" + chaine + ", code=" + code + ", action=" + action + ", type=" + type + "]";
+	}
 	
 	
 }

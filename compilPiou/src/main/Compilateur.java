@@ -9,6 +9,7 @@ import structure.Foret;
 public class Compilateur {
 	SymbolTable symbTable;
 	static File gramFile = new File("res/gzero");
+	//static File gramFile = new File("res/gplVeryBasic");
 	static Foret regles;
 	
 	Parser p;
@@ -20,6 +21,11 @@ public class Compilateur {
 		Parser p = new Parser(gramFile, regles);
 		System.out.println(p.getReglesCompilo().imprimArbre());
 		
+		for (int i = 0; i < p.getContenuFichier().length(); ++i ) {
+			System.out.println("Print Unite Lexicale");
+			System.out.println(p.getUniteLexicaleSuivante().toString());
+			
+		}
 
 	}
 
