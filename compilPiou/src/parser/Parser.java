@@ -122,41 +122,6 @@ public class Parser {
 		return everything;
 	}
 
-	/**
-	 * Methode pour créer des noeuds à partir d'une string définissant une regle
-	 * @return
-	 */
-	public Vector<Noeud> creerNoeuds(String fileContent){
-		Vector<Noeud> noeuds = new Vector<Noeud>();
-		//virer les espaces car ils ne sont pas importants
-		fileContent = fileContent.replace(" ", "");
-
-		//on parcourt la string
-		//un booléen pour voir si on a fini le string
-		//un i pour parcourir
-		boolean done = false;
-		int i = 0;
-		int deb = 0;
-		while (!done) {
-			String item = fileContent.substring(deb,  i);
-			if (symTable.contains(item) == 0) {
-				++i;
-			}
-			else {
-
-			}
-			//si le String est vide, on sort de la boucle
-			if (fileContent.equals("")) {
-				done = true;
-			}
-
-			++i;
-		}
-
-
-		return noeuds;
-	}
-
 	//analyse : 
 	//prend une unité lexicale donnée par scan
 	//analyse taff
@@ -246,11 +211,17 @@ public class Parser {
 	 * TODO:Finish Scan
 	 */
 	private UniteLexicale getUniteLexicaleSuivante() {
+		//un stringbuilder pour build le string
 		StringBuilder sb = new StringBuilder();
+		//on prend le caractere suivant dans la chaine la où on 
+		//s'était arrêté
 		char nextChar = contenuFichier.charAt(compteurString);
+		//on initialise le token pour avoir un retour
+		//(si atomType null sur le retour > error)
 		UniteLexicale token = new UniteLexicale("", "", 0, null);
 		
 		//on vérifie qu'on a pas atteint la fin du fichier
+		
 		while(compteurString <= contenuFichier.length()) {
 			//on mange les espaces, parce qu'on s'en fiche
 			while (nextChar == ' ') {
@@ -258,6 +229,7 @@ public class Parser {
 				nextChar = contenuFichier.charAt(compteurString);
 			}
 			
+			//si on a un ' on doit en avoir un à la fin (idem ([
 			if (nextChar == '\'')  {
 
 			}	
@@ -312,7 +284,25 @@ public class Parser {
 	}
 
 	private void g0Action(int action) {
-		// TODO G0 action
+		
+		switch(action) {
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 7: 
+				break;
+			default:
+				System.out.println("Erreur de G0 action : pas d'action " + action);
+		}
 
 	}
 
