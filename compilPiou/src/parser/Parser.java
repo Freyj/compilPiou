@@ -86,12 +86,14 @@ public class Parser {
 		file = f;
 		symTable = new SymbolTable();
 		reglesCompilo = regles;
-		tokenActuel = null;
 		try {
 			contenuFichier = getFileContent();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		//on scanne une première fois
+		tokenActuel = getUniteLexicaleSuivante();
+		//System.out.println(tokenActuel.getChaine());
 	}
 
 	//shameful throw of exception
@@ -134,7 +136,7 @@ public class Parser {
 	 * Fonction d'analyse
 	 * @param regle
 	 * @return true si l'analyse s'est bien passée
-	 * FIXME: stackoverflows for now
+	 * FIXME: bug
 	 * TODO:debug
 	 */
 	public boolean analyse(Noeud regle, int test) {
