@@ -139,13 +139,13 @@ public class Parser {
 	 * FIXME: bug
 	 * TODO:debug
 	 */
-	public boolean analyse(Noeud regle, int test) {
+	public boolean analyse(Noeud regle) {
 		//si c'est une conc on teste les deux arbres
 		if (regle instanceof Conc) {
-			System.out.println("\t if (analyse(((Conc) regle).getDroit(), ++test))" + test );
-			System.out.println("Une Conc !" + test);
-			if((analyse(((Conc) regle).getDroit(), ++test))) {
-				if (analyse(((Conc) regle).getGauche(), ++test)) {
+			System.out.println("\t if (analyse(((Conc) regle).getDroit()))");
+			System.out.println("Une Conc !");
+			if((analyse(((Conc) regle).getDroit()))) {
+				if (analyse(((Conc) regle).getGauche())) {
 					return true;
 				}
 			}
@@ -153,30 +153,30 @@ public class Parser {
 		}
 		//si c'est une union
 		else if (regle instanceof Union) {
-			System.out.println("Une Union!" + test);
-			if (analyse(((Union) regle).getGauche(), ++test)) {
+			System.out.println("Une Union!" );
+			if (analyse(((Union) regle).getGauche())) {
 				return true;
 			}
 			else {
-				return analyse(((Union) regle).getDroit(), ++test);
+				return analyse(((Union) regle).getDroit());
 			}
 		}
 		//stare
 		else if (regle instanceof Star) {
-			System.out.println("Une Star!" + test);
-			while (analyse(((Star) regle).getStare(), ++test)){
+			System.out.println("Une Star!");
+			while (analyse(((Star) regle).getStare())){
 				System.out.println("star");
 			}
 			return true;
 		}
 		//un
 		else if (regle instanceof Un) {
-			System.out.println("Une Un!" + test);
-			return analyse(((Un) regle).getNoeud(), ++test);
+			System.out.println("Une Un!");
+			return analyse(((Un) regle).getNoeud());
 		}
 		//atom
 		else if (regle instanceof Atom) {
-			System.out.println("Une Atom!" + test);
+			System.out.println("Une Atom!");
 			Atom regleAt = (Atom) regle;
 			System.out.println(regleAt.getCode());
 			//System.out.println("Atome : " + regleAt.getType());
@@ -201,7 +201,7 @@ public class Parser {
 				//(d'après le code de la regle
 				//Atom n = (Atom) reglesCompilo.getReglesb().get(regleAt.getCode());
 				//System.out.println(n.getCode());
-				if(analyse(reglesCompilo.getReglesb().get(regleAt.getCode()), ++test)) {
+				if(analyse(reglesCompilo.getReglesb().get(regleAt.getCode()))) {
 					if (regleAt.getAction() != 0) {
 						g0Action(regleAt.getAction());
 					}

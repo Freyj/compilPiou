@@ -31,7 +31,7 @@ public class Compilateur {
 		/*
 		 * Test analyse
 		 */
-		boolean boo= p.analyse(regles.getReglesb().get("S"), 1);
+		boolean boo= p.analyse(regles.getReglesb().get("S"));
 		
 		System.out.println(boo);
 		
