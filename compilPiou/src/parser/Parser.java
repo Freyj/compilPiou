@@ -433,22 +433,19 @@ public class Parser {
 	}
 
 	/**
-	 * Va chercher dans la table de symboles
+	 * Va chercher dans la table de symboles si le symbole existe
+	 * l'ajoute si besoin
 	 * @param code
-	 * @return
+	 * @return renvoi le code pour l'utilisation
 	 */
-	private String rechercheDicoT(String code) {
-		// TODO Auto-generated method stub
-		return null;
+	private String rechercheDicoT(String chaineToken) {
+		symTable.addSymbol(chaineToken, true);
+		return chaineToken;
 	}
 
 	private String rechercheDicoNT(String chaineToken) {
-		// TODO Auto-generated method stub
-		return null;
+		symTable.addSymbol(chaineToken, false);
+		return chaineToken;
 	}
-
-
-
-
 
 }
