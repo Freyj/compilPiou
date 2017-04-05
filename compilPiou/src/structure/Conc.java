@@ -1,12 +1,12 @@
 package structure;
 
 public class Conc extends Noeud{
-	private Noeud droit;
 	private Noeud gauche;
+	private Noeud droit;
 	
-	public Conc(Noeud dr, Noeud ga) {
-		droit = dr;
+	public Conc(Noeud ga, Noeud dr) {
 		gauche = ga;
+		droit = dr;
 	}
 	
 	public Noeud getGauche() {
@@ -25,8 +25,8 @@ public class Conc extends Noeud{
 		}
 		sb.append("> Conc\n");
 		int newIndent = indent + 5;
-		sb.append(getDroit().imprimNoeud(newIndent));
 		sb.append(getGauche().imprimNoeud(newIndent));
+		sb.append(getDroit().imprimNoeud(newIndent));
 		
 		return sb.toString();
 		
@@ -37,8 +37,8 @@ public class Conc extends Noeud{
 		boolean result = false;
 		if (n instanceof Conc) {
 			Conc test = (Conc) n;
-			if (getDroit().equals(test.getDroit())){
-				if (getGauche().equals(test.getGauche())) {
+			if (getGauche().equals(test.getGauche())){
+				if (getDroit().equals(test.getDroit())) {
 					result = true;
 				}
 			}

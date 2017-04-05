@@ -1,12 +1,12 @@
 package structure;
 
 public class Union extends Noeud{
-	private Noeud droit;
 	private Noeud gauche;
+	private Noeud droit;
 	
-	public Union(Noeud dr, Noeud ga) {
-		droit = dr;
+	public Union(Noeud ga, Noeud dr) {
 		gauche = ga;
+		droit = dr;
 	}
 	
 	public Noeud getGauche() {
@@ -25,8 +25,8 @@ public class Union extends Noeud{
 		}
 		sb.append("> Conc\n");
 		int newIndent = indent + 5;
-		sb.append(getDroit().imprimNoeud(newIndent));
 		sb.append(getGauche().imprimNoeud(newIndent));
+		sb.append(getDroit().imprimNoeud(newIndent));
 		
 		return sb.toString();
 	}
@@ -36,8 +36,8 @@ public class Union extends Noeud{
 		boolean result = false;
 		if (o instanceof Union) {
 			Union test = (Union) o;
-			if (getDroit().equals(test.getDroit())){
-				if (getGauche().equals(test.getGauche())) {
+			if (getGauche().equals(test.getGauche())){
+				if (getDroit().equals(test.getDroit())) {
 					result = true;
 				}
 			}

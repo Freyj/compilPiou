@@ -26,13 +26,13 @@ import structure.UniteLexicale;
 public class Parser {
 
 	private File file;
+	private String contenuFichier;
 	private SymbolTable symTable;
 	private Foret reglesCompilo;
-	//y a 5 règles dans g0
-	private int nbRegles = 5;
 	private UniteLexicale tokenActuel;
 	private int compteurString = 0;
-	private String contenuFichier;
+	//pile pour g0action
+	private Stack<Noeud> sousArbres = new Stack<>();
 
 
 	public File getFile() {
@@ -142,10 +142,10 @@ public class Parser {
 	public boolean analyse(Noeud regle) {
 		//si c'est une conc on teste les deux arbres
 		if (regle instanceof Conc) {
-			System.out.println("\t if (analyse(((Conc) regle).getDroit()))");
+			//System.out.println("\t if (analyse(((Conc) regle).getDroit()))");
 			System.out.println("Une Conc !");
-			if((analyse(((Conc) regle).getDroit()))) {
-				if (analyse(((Conc) regle).getGauche())) {
+			if((analyse(((Conc) regle).getGauche()))) {
+				if (analyse(((Conc) regle).getDroit())) {
 					return true;
 				}
 			}
@@ -371,6 +371,7 @@ public class Parser {
 					}
 				}
 				String ident = identerBuilder.toString();
+				System.out.println(ident);
 				return new UniteLexicale(ident, "IDNTER", action, AtomType.NONTERMINAL);
 			}
 		}
@@ -402,16 +403,15 @@ public class Parser {
 	 */
 	private void g0Action(int action) {
 		//pile
-		Stack<Noeud> sousArbres = new Stack<>();
 		switch(action) {
 		case 1:
 			Noeud t1a = sousArbres.pop();
 			Noeud t1b = sousArbres.pop();
 			Atom t2atome = (Atom) t1b;
 			reglesCompilo.addNoeudMap(t2atome.getCode(), t1a);
-			++nbRegles;
 			break;
 		case 2:
+			getUniteLexicaleSuivante();
 			Noeud t2 = new Atom(rechercheDicoNT(tokenActuel.getCode()), action, tokenActuel.getType());
 			sousArbres.push(t2);
 			break;
@@ -426,6 +426,7 @@ public class Parser {
 			sousArbres.push(new Conc(t4a, t4b));
 			break;
 		case 5:
+			getUniteLexicaleSuivante();			
 			Noeud t5;
 			if (tokenActuel.getType().equals(AtomType.TERMINAL)) {
 				t5 = new Atom(rechercheDicoT(tokenActuel.getCode()), action, tokenActuel.getType());
@@ -455,11 +456,13 @@ public class Parser {
 	 * @return renvoi le code pour l'utilisation
 	 */
 	private String rechercheDicoT(String chaineToken) {
+		System.out.println("TESTING DICO T");
 		symTable.addSymbol(chaineToken, true);
 		return chaineToken;
 	}
 
 	private String rechercheDicoNT(String chaineToken) {
+		System.out.println("TESTING DICO NT");
 		symTable.addSymbol(chaineToken, false);
 		return chaineToken;
 	}
