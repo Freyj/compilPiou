@@ -20,7 +20,7 @@ import structure.UniteLexicale;
 
 
 /**
- * Parser lexical
+ * Parser 
  *
  */
 public class Parser {
@@ -133,50 +133,52 @@ public class Parser {
 	/**
 	 * Fonction d'analyse
 	 * @param regle
-	 * @return
-	 * TODO: fonction d'analyse à finir
+	 * @return true si l'analyse s'est bien passée
+	 * TODO:debug
 	 */
-	public boolean analyse(Noeud regle) {
+	public boolean analyse(Noeud regle, int test) {
 		//si c'est une conc on teste les deux arbres
 		if (regle instanceof Conc) {
-			if (analyse(((Conc) regle).getDroit()))  {
-				return analyse(((Conc) regle).getGauche());
-			}
-			else {
-				return false;
-			}
+			System.out.println("Une Conc !");
+			System.out.println(test);
+			return ((analyse(((Conc) regle).getDroit(), ++test)) && (analyse(((Conc) regle).getGauche(), ++test)));
 		}
 		//si c'est une union
 		else if (regle instanceof Union) {
-			if (analyse(((Union) regle).getGauche())) {
+			System.out.println("Une Union!");
+			if (analyse(((Union) regle).getGauche(), ++test)) {
 				return true;
 			}
 			else {
-				return analyse(((Union) regle).getDroit());
+				return analyse(((Union) regle).getDroit(), ++test);
 			}
 		}
 		//stare
 		else if (regle instanceof Star) {
-			while (analyse(((Star) regle).getStare())){
-				//System.out.println("star");
+			System.out.println("Une Star!");
+			while (analyse(((Star) regle).getStare(), ++test)){
+				System.out.println("star");
 			}
+			return true;
 		}
 		//un
 		else if (regle instanceof Un) {
-			return analyse(((Un) regle).getNoeud());
+			System.out.println("Une Un!");
+			return analyse(((Un) regle).getNoeud(), ++test);
 		}
 		//atom
 		else if (regle instanceof Atom) {
+			System.out.println("Une Atom!");
 			Atom regleAt = (Atom) regle;
 			//si c'est un terminal
 			if (regleAt.getType() == AtomType.TERMINAL) {
 				if (regleAt.getCode() == tokenActuel.getCode() ) {
 					//le token correspond en terme de code
-					boolean res = true;
 					if (regleAt.getAction() != 0) {
 						g0Action(regleAt.getAction());
 					}
 					tokenActuel = getUniteLexicaleSuivante();
+					return true;
 				}
 				else {
 					return false;
@@ -184,10 +186,9 @@ public class Parser {
 			}
 			//c'est un non-terminal
 			else if (regleAt.getType() == AtomType.NONTERMINAL){
-				boolean a = true;
 				//on analyse si la regle correspond a une regle
 				//(d'après le code de la regle
-				if(analyse(reglesCompilo.getReglesb().get(regleAt.getCode()))) {
+				if(analyse(reglesCompilo.getReglesb().get(regleAt.getCode()), ++test)) {
 					if (regleAt.getAction() != 0) {
 						g0Action(regleAt.getAction());
 					}
@@ -394,6 +395,7 @@ public class Parser {
 			Noeud t1b = sousArbres.pop();
 			Atom t2atome = (Atom) t1b;
 			reglesCompilo.addNoeudMap(t2atome.getCode(), t1a);
+			++nbRegles;
 			break;
 		case 2:
 			Noeud t2 = new Atom(rechercheDicoNT(tokenActuel.getCode()), action, tokenActuel.getType());

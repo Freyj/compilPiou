@@ -8,7 +8,7 @@ import structure.Foret;
 
 public class Compilateur {
 	SymbolTable symbTable;
-	static File gramFile = new File("res/gplMarieForTest");
+	static File gramFile = new File("res/gzero");
 	//static File gramFile = new File("res/gplVeryBasic");
 	static Foret regles;
 	
@@ -19,11 +19,21 @@ public class Compilateur {
 		regles = new Foret(true);
 		//System.out.println(regles.imprimArbre());
 		Parser p = new Parser(gramFile, regles);
+		/**
+		 * Sortie des Arbres de la GZero
+		 */
 		System.out.println(p.getReglesCompilo().imprimArbreMap());
 		
 		/* Test affichage des unités lexicales
 		  */
 		p.affichUnitesLexicales();
+		
+		/*
+		 * Test analyse
+		 */
+		boolean boo= p.analyse(regles.getReglesb().get("F"), 1);
+		
+		System.out.println(boo);
 		
 	}
 

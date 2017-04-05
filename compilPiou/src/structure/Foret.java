@@ -116,8 +116,6 @@ public class Foret {
 		return ruleF;
 	}
 	
-	
-	
 	/**
 	 * Methode pour initialiser la foret de règles avec les règles de G0
 	 */
