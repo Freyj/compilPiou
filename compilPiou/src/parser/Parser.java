@@ -157,8 +157,6 @@ public class Parser {
 		}
 		//stare
 		else if (regle instanceof Star) {
-			//TODO:check
-			//boolean res = true;
 			while (analyse(((Star) regle).getStare())){
 				//System.out.println("star");
 			}
@@ -394,10 +392,12 @@ public class Parser {
 		case 1:
 			Noeud t1a = sousArbres.pop();
 			Noeud t1b = sousArbres.pop();
-			
+			Atom t2atome = (Atom) t1b;
+			reglesCompilo.addNoeudMap(t2atome.getCode(), t1a);
 			break;
 		case 2:
-			//Noeud t2 = new Atom(RechercheNT(), action, AtomType.NONTERMINAL);
+			Noeud t2 = new Atom(rechercheDicoNT(tokenActuel.getCode()), action, tokenActuel.getType());
+			sousArbres.push(t2);
 			break;
 		case 3:
 			Noeud t3a = sousArbres.pop();
@@ -410,7 +410,13 @@ public class Parser {
 			sousArbres.push(new Conc(t4a, t4b));
 			break;
 		case 5:
-			
+			Noeud t5;
+			if (tokenActuel.getType().equals(AtomType.TERMINAL)) {
+				t5 = new Atom(rechercheDicoT(tokenActuel.getCode()), action, tokenActuel.getType());
+			}
+			else {
+				t5 = new Atom(rechercheDicoNT(tokenActuel.getCode()), action, tokenActuel.getType());
+			}
 			break;
 		case 6:
 			Noeud t6 = sousArbres.pop();
@@ -424,6 +430,21 @@ public class Parser {
 			System.out.println("Erreur de G0 action : pas d'action " + action);
 		}
 
+	}
+
+	/**
+	 * Va chercher dans la table de symboles
+	 * @param code
+	 * @return
+	 */
+	private String rechercheDicoT(String code) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private String rechercheDicoNT(String chaineToken) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
