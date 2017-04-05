@@ -218,28 +218,28 @@ public class Parser {
 		UniteLexicale token = new UniteLexicale("", "", 0, null);
 
 		//on vérifie qu'on a pas atteint la fin du fichier
-		while(compteurString < contenuFichier.length()) {
+		while(compteurString < contenuFichier.length() -1 ) {
 			//de base l'action est à 0
 			int action = 0;
 			//on mange les espaces, parce qu'on s'en fiche
-			while (Character.isWhitespace(nextChar)) {
+			while (Character.isWhitespace(nextChar) && compteurString < contenuFichier.length() ) {
 				++compteurString;
 				nextChar = contenuFichier.charAt(compteurString);
-				System.out.println("Y a un espace qu'on enlève");
+				//System.out.println("Y a un espace qu'on enlève");
 			}
 			//on gère les caractères terminaux direct
 			if (nextChar == '.') {
-				System.out.println("J'ai vu un point.");
+				//System.out.println("J'ai vu un point.");
 				++compteurString;
 				return new UniteLexicale(".", ".", action, AtomType.TERMINAL);
 			}
 			else if (nextChar == ',') {
-				System.out.println("J'ai vu une virgule.");
+				//System.out.println("J'ai vu une virgule.");
 				++compteurString;
 				return new UniteLexicale(",", ",", action, AtomType.TERMINAL);
 			}
 			else if (nextChar == ';') {
-				System.out.println("J'ai vu un point-virgule");
+				//System.out.println("J'ai vu un point-virgule");
 				++compteurString;
 				return new UniteLexicale(";", ";", action, AtomType.TERMINAL);
 			}
@@ -255,17 +255,17 @@ public class Parser {
 				}
 			}
 			else if (nextChar == '[') {
-				System.out.println("J'ai vu un crochet ouvrant");
+				//System.out.println("J'ai vu un crochet ouvrant");
 				++compteurString;
 				return new UniteLexicale("[", "[", action, AtomType.TERMINAL);				
 			}
 			else if (nextChar == ']') {
-				System.out.println("J'ai vu un crochet fermant");				
+				//System.out.println("J'ai vu un crochet fermant");				
 				++compteurString;
 				return new UniteLexicale("]", "]", action, AtomType.TERMINAL);	
 			}
 			else if (nextChar == '+') {
-				System.out.println("J'ai vu un plus");
+				//System.out.println("J'ai vu un plus");
 				++compteurString;
 				return new UniteLexicale("+", "+", action, AtomType.TERMINAL);				
 			}
@@ -273,55 +273,51 @@ public class Parser {
 				++compteurString;
 				nextChar = contenuFichier.charAt(compteurString);
 				if (nextChar == '/') {
-					System.out.println("J'ai vu une parenthese avec un antislash");
+					//System.out.println("J'ai vu une parenthese avec un antislash");
 					++compteurString;
 					return new UniteLexicale("(/", "(/", action, AtomType.TERMINAL);
 				}
-				System.out.println("J'ai vu une parenthese toute seule");
+				//System.out.println("J'ai vu une parenthese toute seule");
 				return new UniteLexicale("(", "(", action, AtomType.TERMINAL);
 			}
 			else if (nextChar =='/') {
-				System.out.println("Je vois un slash");
+				//System.out.println("Je vois un slash");
 				++compteurString;
 				nextChar = contenuFichier.charAt(compteurString);
 				if (nextChar == ')') {
-					System.out.println("Je vois un slash avec une parenthese");
+					//System.out.println("Je vois un slash avec une parenthese");
 					++compteurString;
 					return new UniteLexicale("/)", "/)", action, AtomType.TERMINAL);
 				}
 			}
 			//si y a des guillements, on process jusqu'au guillement suivant
 			else if (nextChar == '\'') {
-				System.out.println("Je vois un guillement ouvrant");
+				//System.out.println("Je vois un guillement ouvrant");
 				++compteurString;
 				nextChar = contenuFichier.charAt(compteurString);
 				StringBuilder elterBuilder = new StringBuilder();
 				while ((nextChar != '\'') && (compteurString < contenuFichier.length())) {
-					System.out.println("J'ai vu un caractere : " + nextChar);
+					//System.out.println("J'ai vu un caractere : " + nextChar);
 					nextChar = contenuFichier.charAt(compteurString);
 					//si y a une action entre les guillements
 					if (nextChar == '#') {
-						System.out.println("J'ai vu un dièse");
+						//System.out.println("J'ai vu un dièse");
 						StringBuilder actionBuilder = new StringBuilder();
 						++compteurString;
 						nextChar = contenuFichier.charAt(compteurString);
 						while(Character.isDigit(nextChar)) {
-							System.out.println("On est encore dans le chiffre de l'action");
+							//System.out.println("On est encore dans le chiffre de l'action");
 							actionBuilder.append(nextChar);
 							++compteurString;
 							nextChar = contenuFichier.charAt(compteurString);
-							System.out.println(actionBuilder.toString());
+							//System.out.println(actionBuilder.toString());
 						}
-						String actionString = actionBuilder.toString();
-						actionString.replaceAll("\"", "");
 						action = Integer.parseInt(actionBuilder.toString());				
 					}
 					else if (nextChar != '\'') {
 						elterBuilder.append(nextChar);
-						System.out.println(elterBuilder.toString());
 					}
-
-					System.out.println(elterBuilder.toString());
+					//System.out.println(elterBuilder.toString());
 					++compteurString;
 				}
 				if (compteurString == contenuFichier.length()) {
@@ -329,30 +325,34 @@ public class Parser {
 				}
 				else {
 					String elter = elterBuilder.toString();
-					System.out.println("L'élément terminal : " + elter);
+					//System.out.println("L'élément terminal : " + elter);
 					return new UniteLexicale(elter,"ELTER", action, AtomType.TERMINAL);
 				}
 			}
 			//si on a un debut de chaine (peut pas commencer par un chiffre)
 			else if (Character.isAlphabetic(nextChar)) {
-				System.out.println("Oh un identifiant");
+				//System.out.println("Oh un identifiant");
 				StringBuilder identerBuilder = new StringBuilder();
 				while(Character.isAlphabetic(nextChar) 
 						|| Character.isDigit(nextChar)) {
 					nextChar = contenuFichier.charAt(compteurString);
 					if (nextChar == '#') {
-						System.out.println("Un dièse!");
+						//System.out.println("Un dièse!");
 						StringBuilder actionBuilder = new StringBuilder();
+						++compteurString;
+						nextChar = contenuFichier.charAt(compteurString);
 						while(Character.isDigit(nextChar)) {
 							actionBuilder.append(nextChar);
 							++compteurString;
 							nextChar = contenuFichier.charAt(compteurString);
+							
 						}
-						//action = Integer.parseInt(actionBuilder.toString());
+						//System.out.println(actionBuilder.toString());
+						action = Integer.parseInt(actionBuilder.toString());
 												
 					}
 					else if (!Character.isWhitespace(nextChar)) {
-						System.out.println("Un char ou int ou autre : " + nextChar);
+						//System.out.println("Un char ou int ou autre : " + nextChar);
 						identerBuilder.append(nextChar);
 						++compteurString;
 					}

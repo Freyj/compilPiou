@@ -21,10 +21,10 @@ public class Compilateur {
 		Parser p = new Parser(gramFile, regles);
 		System.out.println(p.getReglesCompilo().imprimArbre());
 		
-		for (int i = 0; i < p.getContenuFichier().length(); ++i ) {
+		for (int i = 0; i < 61 ; ++i ) {
 			System.out.println("Print Unite Lexicale");
 			System.out.println(p.getUniteLexicaleSuivante().toString());
-			System.out.println(p.getContenuFichier().substring(0, p.getCompteurString()));
+			//System.out.println(p.getContenuFichier().substring(0, p.getCompteurString()));
 			
 		}
 
