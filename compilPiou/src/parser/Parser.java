@@ -88,7 +88,6 @@ public class Parser {
 		try {
 			contenuFichier = getFileContent();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -109,17 +108,14 @@ public class Parser {
 			}
 			everything = sb.toString();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally {
 			try {
 				br.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -166,9 +162,14 @@ public class Parser {
 	//analyse taff
 	//rescan sur l'élément
 	//si on fait scan on passe à l'élément suivant
-
 	//il faut un truc qui récupère les unités lexicales
 	
+	/**
+	 * Fonction d'analyse
+	 * @param regle
+	 * @return
+	 * TODO: fonction d'analyse à finir
+	 */
 	boolean analyse(Noeud regle) {
 		//si c'est une conc on teste les deux arbres
 		if (regle instanceof Conc) {
@@ -211,7 +212,7 @@ public class Parser {
 					if (regleAt.getAction() != 0) {
 						g0Action(regleAt.getAction());
 					}
-					getUniteLexicaleSuivante();
+					tokenActuel = getUniteLexicaleSuivante();
 				}
 				else {
 					return false;
@@ -220,44 +221,98 @@ public class Parser {
 			//c'est un non-terminal
 			else if (regleAt.getType() == AtomType.NONTERMINAL){
 				boolean a = true;
-				//on analyse si la regle correspond a une regle (d'après le code de la regle
+				//on analyse si la regle correspond a une regle
+				//(d'après le code de la regle
+				//TODO: trouver cette condition et enlever cette merde
 				if(a == true) {
 					//analyse(reglesCompilo.getRegles().get(index)))) {
 					//revoir la condition proprement
 					if (regleAt.getAction() != 0) {
 						g0Action(regleAt.getAction());
 					}
-					
+					return true;
 				}
 				else {
 					return false;
 				}
 			}
 		}
-
-
-
 		return false;
 	}
 
 	/** 
+	 * (équivalent de la fonction scan dans le cours)
 	 * Scan la chaîne pour avancer au token suivant
+	 * TODO:Finish Scan
 	 */
-	private void getUniteLexicaleSuivante() {
+	private UniteLexicale getUniteLexicaleSuivante() {
 		StringBuilder sb = new StringBuilder();
 		char nextChar = contenuFichier.charAt(compteurString);
-		sb.append(nextChar);
-		++compteurString;
-		//si c'est un # -> action
-		while(nextChar != '#') {
+		UniteLexicale token = new UniteLexicale("", "", 0, null);
+		
+		//on vérifie qu'on a pas atteint la fin du fichier
+		while(compteurString <= contenuFichier.length()) {
+			//on mange les espaces, parce qu'on s'en fiche
+			while (nextChar == ' ') {
+				++compteurString;
+				nextChar = contenuFichier.charAt(compteurString);
+			}
 			
+			if (nextChar == '\'')  {
+
+			}	
+			//si c'est pas une action (#), et tant que c'est des chars ou des chiffres,
+			//on continue à accumuler les strings
+			while(
+					nextChar != '#'
+					&& (Character.isAlphabetic(nextChar) ||Character.isDigit(nextChar)) ) {
+				sb.append(nextChar);
+				++compteurString;
+				nextChar = contenuFichier.charAt(compteurString);
+			}
+			//si c'est une action on ignore le #
+			if (nextChar == '#') {
+				nextChar = contenuFichier.charAt(compteurString);
+				tokenActuel.setChaine(sb.toString());
+				StringBuilder sb2 = new StringBuilder();
+				//tant que c'est un chiffre, on avance
+				while(Character.isDigit(nextChar)) {
+					sb2.append(nextChar);
+					++compteurString;
+					nextChar = contenuFichier.charAt(compteurString);
+				}
+				//on change la chaine en int pour l'action
+				token.setAction(Integer.parseInt(sb2.toString()));
+			}
+
+			if (nextChar == '-') {
+				sb.append(nextChar);
+				++compteurString;
+				//le > après -
+				nextChar = contenuFichier.charAt(compteurString);
+				if (nextChar == '>') {
+					sb.append(nextChar);
+					++compteurString;
+				}
+
+			}
+
+			String res = sb.toString();
+			token = new UniteLexicale(res, res, compteurString, null);
+			//Affichage pour test
+			System.out.println("Token : " + token.getChaine() +
+					"\nAction : " + token.getAction() +
+					"\nCode : " + token.getCode());
+
 		}
-		// TODO Auto-generated method stub
+
+		return token;
+		
 
 	}
 
 	private void g0Action(int action) {
-		// TODO Auto-generated method stub
+		// TODO G0 action
 
 	}
 
