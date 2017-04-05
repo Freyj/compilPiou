@@ -134,18 +134,24 @@ public class Parser {
 	 * Fonction d'analyse
 	 * @param regle
 	 * @return true si l'analyse s'est bien passée
+	 * FIXME: stackoverflows for now
 	 * TODO:debug
 	 */
 	public boolean analyse(Noeud regle, int test) {
 		//si c'est une conc on teste les deux arbres
 		if (regle instanceof Conc) {
-			System.out.println("Une Conc !");
-			System.out.println(test);
-			return ((analyse(((Conc) regle).getDroit(), ++test)) && (analyse(((Conc) regle).getGauche(), ++test)));
+			System.out.println("\t if (analyse(((Conc) regle).getDroit(), ++test))" + test );
+			System.out.println("Une Conc !" + test);
+			if((analyse(((Conc) regle).getDroit(), ++test))) {
+				if (analyse(((Conc) regle).getGauche(), ++test)) {
+					return true;
+				}
+			}
+			return false;
 		}
 		//si c'est une union
 		else if (regle instanceof Union) {
-			System.out.println("Une Union!");
+			System.out.println("Une Union!" + test);
 			if (analyse(((Union) regle).getGauche(), ++test)) {
 				return true;
 			}
@@ -155,7 +161,7 @@ public class Parser {
 		}
 		//stare
 		else if (regle instanceof Star) {
-			System.out.println("Une Star!");
+			System.out.println("Une Star!" + test);
 			while (analyse(((Star) regle).getStare(), ++test)){
 				System.out.println("star");
 			}
@@ -163,13 +169,15 @@ public class Parser {
 		}
 		//un
 		else if (regle instanceof Un) {
-			System.out.println("Une Un!");
+			System.out.println("Une Un!" + test);
 			return analyse(((Un) regle).getNoeud(), ++test);
 		}
 		//atom
 		else if (regle instanceof Atom) {
-			System.out.println("Une Atom!");
+			System.out.println("Une Atom!" + test);
 			Atom regleAt = (Atom) regle;
+			System.out.println(regleAt.getCode());
+			//System.out.println("Atome : " + regleAt.getType());
 			//si c'est un terminal
 			if (regleAt.getType() == AtomType.TERMINAL) {
 				if (regleAt.getCode() == tokenActuel.getCode() ) {
@@ -185,9 +193,12 @@ public class Parser {
 				}
 			}
 			//c'est un non-terminal
+			//FIXME: bug is here
 			else if (regleAt.getType() == AtomType.NONTERMINAL){
 				//on analyse si la regle correspond a une regle
 				//(d'après le code de la regle
+				//Atom n = (Atom) reglesCompilo.getReglesb().get(regleAt.getCode());
+				//System.out.println(n.getCode());
 				if(analyse(reglesCompilo.getReglesb().get(regleAt.getCode()), ++test)) {
 					if (regleAt.getAction() != 0) {
 						g0Action(regleAt.getAction());
@@ -198,6 +209,7 @@ public class Parser {
 					return false;
 				}
 			}
+			return false;
 		}
 		return false;
 	}
