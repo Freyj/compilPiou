@@ -24,6 +24,7 @@ public class Compilateur {
 		for (int i = 0; i < p.getContenuFichier().length(); ++i ) {
 			System.out.println("Print Unite Lexicale");
 			System.out.println(p.getUniteLexicaleSuivante().toString());
+			System.out.println(p.getContenuFichier().substring(0, p.getCompteurString()));
 			
 		}
 

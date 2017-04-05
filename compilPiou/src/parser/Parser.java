@@ -294,23 +294,34 @@ public class Parser {
 			else if (nextChar == '\'') {
 				System.out.println("Je vois un guillement ouvrant");
 				++compteurString;
+				nextChar = contenuFichier.charAt(compteurString);
 				StringBuilder elterBuilder = new StringBuilder();
-				while ((nextChar != '\'') && (compteurString != contenuFichier.length())) {
+				while ((nextChar != '\'') && (compteurString < contenuFichier.length())) {
 					System.out.println("J'ai vu un caractere : " + nextChar);
 					nextChar = contenuFichier.charAt(compteurString);
 					//si y a une action entre les guillements
 					if (nextChar == '#') {
 						System.out.println("J'ai vu un dièse");
 						StringBuilder actionBuilder = new StringBuilder();
+						++compteurString;
+						nextChar = contenuFichier.charAt(compteurString);
 						while(Character.isDigit(nextChar)) {
 							System.out.println("On est encore dans le chiffre de l'action");
 							actionBuilder.append(nextChar);
 							++compteurString;
 							nextChar = contenuFichier.charAt(compteurString);
+							System.out.println(actionBuilder.toString());
 						}
+						String actionString = actionBuilder.toString();
+						actionString.replaceAll("\"", "");
 						action = Integer.parseInt(actionBuilder.toString());				
 					}
-					elterBuilder.append(nextChar);
+					else if (nextChar != '\'') {
+						elterBuilder.append(nextChar);
+						System.out.println(elterBuilder.toString());
+					}
+
+					System.out.println(elterBuilder.toString());
 					++compteurString;
 				}
 				if (compteurString == contenuFichier.length()) {
@@ -319,7 +330,7 @@ public class Parser {
 				else {
 					String elter = elterBuilder.toString();
 					System.out.println("L'élément terminal : " + elter);
-					return new UniteLexicale(elter,"ELTER", action, AtomType.NONTERMINAL);
+					return new UniteLexicale(elter,"ELTER", action, AtomType.TERMINAL);
 				}
 			}
 			//si on a un debut de chaine (peut pas commencer par un chiffre)
@@ -327,8 +338,7 @@ public class Parser {
 				System.out.println("Oh un identifiant");
 				StringBuilder identerBuilder = new StringBuilder();
 				while(Character.isAlphabetic(nextChar) 
-						|| Character.isDigit(nextChar)
-						|| (nextChar == '#')) {
+						|| Character.isDigit(nextChar)) {
 					nextChar = contenuFichier.charAt(compteurString);
 					if (nextChar == '#') {
 						System.out.println("Un dièse!");
@@ -338,7 +348,7 @@ public class Parser {
 							++compteurString;
 							nextChar = contenuFichier.charAt(compteurString);
 						}
-						action = Integer.parseInt(actionBuilder.toString());
+						//action = Integer.parseInt(actionBuilder.toString());
 												
 					}
 					else if (!Character.isWhitespace(nextChar)) {
