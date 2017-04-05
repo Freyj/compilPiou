@@ -202,7 +202,7 @@ public class Parser {
 				//(d'après le code de la regle
 				Atom n = (Atom) reglesCompilo.getReglesb().get(regleAt.getCode());
 				System.out.println(n.getCode());
-				if(analyse(reglesCompilo.getReglesb().get(regleAt.getCode()))) {
+				if(analyse(reglesCompilo.getReglesb().get("N"))) {
 					if (regleAt.getAction() != 0) {
 						g0Action(regleAt.getAction());
 					}

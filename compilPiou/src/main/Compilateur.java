@@ -8,8 +8,8 @@ import structure.Foret;
 
 public class Compilateur {
 	SymbolTable symbTable;
-	static File gramFile = new File("res/gzero");
-	//static File gramFile = new File("res/gplVeryBasic");
+	//static File gramFile = new File("res/gzero");
+	static File gramFile = new File("res/gplVeryBasic");
 	
 	Parser p;
 	
@@ -23,7 +23,7 @@ public class Compilateur {
 		
 		/* Test affichage des unités lexicales
 		  */
-		//p.affichUnitesLexicales();
+		p.affichUnitesLexicales();
 		
 		/*
 		 * Test analyse
